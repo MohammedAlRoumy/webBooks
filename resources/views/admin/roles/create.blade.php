@@ -72,11 +72,11 @@
                                                 $permission_maps = ['view', 'add', 'edit', 'delete','activate'];
                                             @endphp
 
-                                                <th style="text-align: center">عرض</th>
-                                                <th style="text-align: center">إضافة</th>
-                                                <th style="text-align: center">تعديل</th>
-                                                <th style="text-align: center">حذف</th>
-                                                <th style="text-align: center">تفعيل</th>
+                                            <th style="text-align: center">عرض</th>
+                                            <th style="text-align: center">إضافة</th>
+                                            <th style="text-align: center">تعديل</th>
+                                            <th style="text-align: center">حذف</th>
+                                            <th style="text-align: center">تفعيل</th>
                                             <th style="text-align: center">فعل</th>
                                             <th style="text-align: center">عطل</th>
                                         </tr>
@@ -84,9 +84,8 @@
                                         <tbody>
 
                                         @php
-                                            $models = ['dashboard','admins', 'settings', 'roles','categories',
-                                                       'authors','books',
-                                                        'users', 'comments','contacts','about_us','terms','policies'];
+                                            $models = ['dashboard','admins', 'settings', 'roles','categories','authors','books',
+                                                         'users', 'comments','contacts','our_mission','publish','policies','copyrights'];
                                         @endphp
 
 
@@ -144,18 +143,18 @@
         $(function () {
             $('.reg-all').click(function (e) {
                 e.preventDefault();
-                $(this).parent().parent().find('.rule').each(function(i){
-                    var IsCheck=$(this).is(":checked");
-                    if(! IsCheck) {
+                $(this).parent().parent().find('.rule').each(function (i) {
+                    var IsCheck = $(this).is(":checked");
+                    if (!IsCheck) {
                         $(this).click();
                     }
                 });
             });
             $('.de-reg-all').click(function (e) {
                 e.preventDefault();
-                $(this).parent().parent().find('.rule').each(function(i){
-                    var IsCheck=$(this).is(":checked");
-                    if(IsCheck) {
+                $(this).parent().parent().find('.rule').each(function (i) {
+                    var IsCheck = $(this).is(":checked");
+                    if (IsCheck) {
                         $(this).click();
                     }
                 });

@@ -14,6 +14,11 @@ class Comment extends Model {
 
 	use SoftDeletes;
 
+	protected $casts = [
+        'created_at' => 'date:Y-m-d',
+        'updated_at' => 'date:Y-m-d',
+    ];
+
 	protected $dates = ['deleted_at'];
 
 	public function book()
@@ -21,4 +26,8 @@ class Comment extends Model {
 		return $this->belongsTo(Book::class, 'book_id');
 	}
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

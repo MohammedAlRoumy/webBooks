@@ -132,7 +132,7 @@ class AuthorController extends Controller
             'name'=>$request->name,
             'bio'=>$request->bio,
             'status'=>$status,
-            'image'=>@$request_data['image']?:$author->image
+            'image'=>@$request_data['image']??$author->image
         ]);
         session()->flash('success', 'تمت عملية التعديل بنجاح');
         return redirect()->route('authors.index');

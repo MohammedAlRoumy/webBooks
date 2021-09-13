@@ -89,6 +89,21 @@
                             </div>
 
                             <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 col-form-label text-left">ملف الكتاب
+                                    <span class="text-danger">*</span></label>
+                                <div class="col-lg-9 col-xl-9">
+                                    <input type="file" class="form-control form-control-solid" name="book" placeholder="ارفق ملف الكتاب">
+
+                                    <div class="fv-plugins-message-container">
+                                        @error('book')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 col-form-label text-left">التصنيف<span
                                         class="text-danger">*</span></label>
                                 <div class="col-lg-9 col-xl-9">

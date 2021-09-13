@@ -13,7 +13,7 @@ class Book extends Model
 
     protected $table = 'books';
     public $timestamps = true;
-    protected $fillable = ['name', 'status', 'description', 'image', 'category_id', 'author_id', 'rate_count', 'rate_average', 'download_count'];
+    protected $fillable = ['name','book', 'status', 'description', 'image', 'category_id', 'author_id', 'rate_count', 'rate_average', 'download_count'];
    // protected $appends = ['category','author'];
     use SoftDeletes;
 

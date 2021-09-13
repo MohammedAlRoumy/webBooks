@@ -28,14 +28,18 @@
 
                             <div class=" mt-5">
                                 <div>
-                                    <button type="submit"
-                                            class="btn btn-success btn-sm font-weight-bolder">
-                                        إضافة <i class="fa fa-check"></i>
-                                    </button>
-                                    <a href="{{route('admins.index')}}" id="next-step"
-                                       class="btn btn-danger btn-sm font-weight-bolder">
-                                        إلغاء <i class="fa fa-times"></i>
-                                    </a>
+                                    @can('add_admins')
+                                        <button type="submit"
+                                                class="btn btn-success btn-sm font-weight-bolder">
+                                            إضافة <i class="fa fa-check"></i>
+                                        </button>
+                                    @endcan
+                                    @can('view_admins')
+                                        <a href="{{route('admins.index')}}" id="next-step"
+                                           class="btn btn-danger btn-sm font-weight-bolder">
+                                            إلغاء <i class="fa fa-times"></i>
+                                        </a>
+                                    @endcan
                                 </div>
                             </div>
                             <!--end::Wizard Actions-->
@@ -94,7 +98,8 @@
                                 <label class="col-xl-3 col-lg-3 col-form-label text-left"> البريد الالكتروني
                                     <span class="text-danger">*</span></label>
                                 <div class="col-lg-9 col-xl-9">
-                                    <input type="email" class="form-control" name="email" placeholder="ادخل البريد الالكتروني ">
+                                    <input type="email" class="form-control" name="email"
+                                           placeholder="ادخل البريد الالكتروني ">
 
                                     <div class="fv-plugins-message-container">
                                         @error('email')
@@ -109,7 +114,8 @@
                                 <label class="col-xl-3 col-lg-3 col-form-label text-left">كلمة المرور
                                     <span class="text-danger">*</span></label>
                                 <div class="col-lg-9 col-xl-9">
-                                    <input type="password" class="form-control" name="password" placeholder="ادخل كلمة المرور ">
+                                    <input type="password" class="form-control" name="password"
+                                           placeholder="ادخل كلمة المرور ">
 
                                     <div class="fv-plugins-message-container">
                                         @error('password')
@@ -125,7 +131,8 @@
                                 <label class="col-xl-3 col-lg-3 col-form-label text-left">تأكيد كلمة المرور
                                     <span class="text-danger">*</span></label>
                                 <div class="col-lg-9 col-xl-9">
-                                    <input type="password" class="form-control" name="password_confirmation" placeholder="ادخل تأكيد كلمة المرور ">
+                                    <input type="password" class="form-control" name="password_confirmation"
+                                           placeholder="ادخل تأكيد كلمة المرور ">
 
                                     <div class="fv-plugins-message-container">
                                         @error('password_confirmation')
@@ -137,7 +144,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-xl-3 col-lg-3 col-form-label text-left">الصلاحيات <span class="text-danger">*</span></label>
+                                <label class="col-xl-3 col-lg-3 col-form-label text-left">الصلاحيات <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-lg-9 col-xl-9">
                                     <select class="form-control" name="role" id="exampleSelect1">
                                         <option value="">اختر صلاحية</option>

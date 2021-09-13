@@ -15,31 +15,16 @@
             <div class="card card-custom">
                 <div class="card-header">
                     <div class="card-title">
-                        <h3 class="card-label">المؤلفون</h3>
+                        <h3 class="card-label">اتصل بنا</h3>
                     </div>
                     <div class="card-toolbar">
 
                         <!--begin::Button-->
-                        <a href="{{route('books.create')}}" class="btn btn-primary font-weight-bolder">
-                            <i class="fa fa-plus"></i> جديد </a>
                         <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body ">
                     <!--begin: Datatable-->
-                {{-- <table class="table table-striped table-bordered table-hover table-checkable order-column"
-                        id="category_table">
-                     <thead>
-                     <tr>
-                         <th>#</th>
-                         <th>اسم التصنيف</th>
-                         <th>الحالة</th>
-                         <th>تاريخ النشر</th>
-                         <th>الادوات</th>
-                     </tr>
-                     </thead>
-                     <tbody></tbody>
-                 </table>--}}
                 {!! $dataTable->table(['class'=>'table table-bordered table-hover table-checkable order-column text-center'],true) !!}
                 <!--end: Datatable-->
                 </div>
@@ -94,11 +79,6 @@
 
 @section('js')
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    {{--    <script src="{{asset('assets/js/pages/crud/ktdatatable/base/data-json.js')}}"></script>--}}
-    {{--    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>--}}
-    {{--    <script src="{{asset('assets/js/pages/crud/datatables/data-sources/ajax-server-side.js')}}"></script>--}}
-    {{--<script src="{{asset('assets/js/pages/crud/ktdatatable/base/data-ajax.js')}}"></script>--}}
-    {{--    <script src="{{asset('assets/js/pages/crud/datatables/basic/headers.js')}}"></script>--}}
 
     {!! $dataTable->scripts() !!}
 
@@ -110,7 +90,7 @@
                 }
             });
 
-            $(document).on("click", "#deleteBook", function (e) {
+            $(document).on("click", "#deleteContact", function (e) {
 
 
                 e.preventDefault();
@@ -142,7 +122,7 @@
                         $.ajax(
                             {
                                 // url: url.href, //or you can use url: "company/"+id,
-                                url: "{{ route('books.delete') }}", //or you can use url: "company/"+id,
+                                url: "{{ route('contact_us.delete') }}", //or you can use url: "company/"+id,
                                 type: 'POST',
                                 data: {
                                     id: id,
@@ -166,28 +146,6 @@
                             });
                     } else {
                         e.dismiss && Swal.fire("تم الالغاء", "لم يتم عمل اي تغيير", "error");
-                    }
-                });
-            });
-
-            $(document).on('click', ".status", function () {
-                var id = $(this).data('href');
-                var item = $(this);
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('books.status') }}",
-                    data: {'id': id},
-                    success: function (data) {
-                        if (data.type == 'yes') {
-                            item.removeClass("btn-dark");
-                            item.addClass("btn-primary");
-                            item.html('<i class="fa fa-check"></i>');
-                        } else if (data.type == 'no') {
-                            item.removeClass("btn-primary");
-                            item.addClass("btn-dark");
-                            item.html('<i class="fa fa-times"></i> ');
-                        }
-                        toastr[data.status](data.message);
                     }
                 });
             });

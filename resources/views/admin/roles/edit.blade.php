@@ -82,11 +82,9 @@
                                         <tbody>
 
                                         @php
-                                            $models = ['dashboard','admins', 'settings', 'roles','translations','categories',
-                                                        'colors','sizes','stores','products','orders','orderCases','coupons',
-                                                        'users', 'notifications','contacts','about_us','terms','policies','payments'];
+                                            $models = ['dashboard','admins', 'settings', 'roles','categories','authors','books',
+                                                         'users', 'comments','contacts','our_mission','publish','policies','copyrights'];
                                         @endphp
-
 
                                         @foreach($models as $model)
                                             <tr>

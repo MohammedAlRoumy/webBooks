@@ -9,7 +9,7 @@ class CreateBooksTable extends Migration {
 	public function up()
 	{
 		Schema::create('books', function(Blueprint $table) {
-			$table->bigIncrements('id', true);
+			$table->id();
 			$table->bigInteger('category_id')->unsigned();
 
 			$table->foreign('category_id')->references('id')->on('categories')
@@ -24,6 +24,7 @@ class CreateBooksTable extends Migration {
 
 			$table->string('image')->nullable();
 			$table->string('name')->nullable();
+            $table->string('book')->nullable();
 			$table->longText('description')->nullable();
 			$table->enum('status', ['active', 'inactive'])->nullable();
 			$table->integer('rate_count')->nullable();

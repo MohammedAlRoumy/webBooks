@@ -9,7 +9,7 @@ class CreateAuthorsTable extends Migration {
 	public function up()
 	{
 		Schema::create('authors', function(Blueprint $table) {
-			$table->bigIncrements('id', true);
+			$table->id();
 			$table->string('image')->nullable();
 			$table->string('name')->nullable();
 			$table->longText('bio')->nullable();

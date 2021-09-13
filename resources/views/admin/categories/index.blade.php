@@ -18,11 +18,12 @@
                         <h3 class="card-label">التصنيفات</h3>
                     </div>
                     <div class="card-toolbar">
-
+                        @can('add_categories')
                         <!--begin::Button-->
                         <a href="{{route('categories.create')}}" class="btn btn-primary font-weight-bolder">
                             <i class="fa fa-plus"></i> جديد </a>
                         <!--end::Button-->
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body ">

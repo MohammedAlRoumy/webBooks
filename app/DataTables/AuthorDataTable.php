@@ -24,7 +24,8 @@ class AuthorDataTable extends DataTable
             ->addIndexColumn()
             ->addColumn('actions', 'admin.authors.parts.actions')
             ->addColumn('status', 'admin.authors.parts.status')
-            ->rawColumns(['actions', 'status']);
+            ->addColumn('image', 'admin.authors.parts.image')
+            ->rawColumns(['actions', 'status','image']);
     }
 
     /**
@@ -198,6 +199,12 @@ class AuthorDataTable extends DataTable
                 'searchable' => false,
                 'exportable' => false,
                 'printable' => true,
+            ],
+            [
+                "data" => "image",
+                "name" => "image",
+                "title" => "صورة المؤلف",
+                'orderable' => false,
             ],
             [
                 "data" => "name",

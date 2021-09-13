@@ -18,11 +18,12 @@
                         <h3 class="card-label">المؤلفون</h3>
                     </div>
                     <div class="card-toolbar">
-
+                    @can('add_books')
                         <!--begin::Button-->
-                        <a href="{{route('books.create')}}" class="btn btn-primary font-weight-bolder">
-                            <i class="fa fa-plus"></i> جديد </a>
-                        <!--end::Button-->
+                            <a href="{{route('books.create')}}" class="btn btn-primary font-weight-bolder">
+                                <i class="fa fa-plus"></i> جديد </a>
+                            <!--end::Button-->
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body ">
@@ -63,100 +64,97 @@
 
     {!! $dataTable->scripts() !!}
 
-     <script type="text/javascript">
-         $(document).ready(function () {
-             $.ajaxSetup({
-                 headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 }
-             });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-             $(document).on("click","#deleteBook",function(e){
-
-
-                 e.preventDefault();
-                 var id = $(this).data("id");
-                 // var id = $(this).attr('data-id');
-                 var token = $("meta[name='csrf-token']").attr("content");
-                 var url = e.target;
-                 Swal.fire(
-                     {
-
-                         title: "هل انت متأكد ؟",
-
-                         text: "هل تريد بالتأكيد القيام بالاجراء",
-
-                         icon: "warning",
-
-                         showCancelButton: 1,
-
-                         confirmButtonText: "نعم , قم بالاجراء !",
-
-                         cancelButtonText: "لا, الغي العملية !",
-
-                         reverseButtons: 1
-
-                     }).then(function (e) {
+            $(document).on("click", "#deleteBook", function (e) {
 
 
-                     if (e.value) {
-                         $.ajax(
-                             {
-                                 // url: url.href, //or you can use url: "company/"+id,
-                                 url: "{{ route('books.delete') }}", //or you can use url: "company/"+id,
-                                 type: 'POST',
-                                 data: {
-                                     id: id,
-                                     _token:token
-                                 },
-                                 success: function (response) {
+                e.preventDefault();
+                var id = $(this).data("id");
+                // var id = $(this).attr('data-id');
+                var token = $("meta[name='csrf-token']").attr("content");
+                var url = e.target;
+                Swal.fire(
+                    {
 
-                                     $("#success").html(response.message)
-                                     Swal.fire({
+                        title: "هل انت متأكد ؟",
 
-                                         title: 'تم القيام بالعملية بنجاح',
+                        text: "هل تريد بالتأكيد القيام بالاجراء",
 
-                                         icon: 'success',
+                        icon: "warning",
 
-                                         timer: 10000,
+                        showCancelButton: 1,
 
-                                         showConfirmButton: false
+                        confirmButtonText: "نعم , قم بالاجراء !",
 
-                                     }).then(location.reload())
-                                 }
-                             });
-                     }else{
-                         e.dismiss && Swal.fire("تم الالغاء", "لم يتم عمل اي تغيير", "error");
-                     }
-                 });
-             });
+                        cancelButtonText: "لا, الغي العملية !",
 
-             $(document).on('click', ".status", function() {
-                 var id = $(this).data('href');
-                 var item = $(this);
-                 $.ajax({
-                     type: "POST",
-                     url: "{{ route('books.status') }}",
-                     data: {'id' : id},
-                     success:function (data){
-                         if(data.type == 'yes')
-                         {
-                             item.removeClass("btn-dark");
-                             item.addClass("btn-primary");
-                             item.html('<i class="fa fa-check"></i>');
-                         }
-                         else if(data.type == 'no')
-                         {
-                             item.removeClass("btn-primary");
-                             item.addClass("btn-dark");
-                             item.html('<i class="fa fa-times"></i> ');
-                         }
-                         toastr[data.status](data.message);
-                     }
-                 });
-             });
+                        reverseButtons: 1
 
-         });
-     </script>
+                    }).then(function (e) {
+
+
+                    if (e.value) {
+                        $.ajax(
+                            {
+                                // url: url.href, //or you can use url: "company/"+id,
+                                url: "{{ route('books.delete') }}", //or you can use url: "company/"+id,
+                                type: 'POST',
+                                data: {
+                                    id: id,
+                                    _token: token
+                                },
+                                success: function (response) {
+
+                                    $("#success").html(response.message)
+                                    Swal.fire({
+
+                                        title: 'تم القيام بالعملية بنجاح',
+
+                                        icon: 'success',
+
+                                        timer: 10000,
+
+                                        showConfirmButton: false
+
+                                    }).then(location.reload())
+                                }
+                            });
+                    } else {
+                        e.dismiss && Swal.fire("تم الالغاء", "لم يتم عمل اي تغيير", "error");
+                    }
+                });
+            });
+
+            $(document).on('click', ".status", function () {
+                var id = $(this).data('href');
+                var item = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('books.status') }}",
+                    data: {'id': id},
+                    success: function (data) {
+                        if (data.type == 'yes') {
+                            item.removeClass("btn-dark");
+                            item.addClass("btn-primary");
+                            item.html('<i class="fa fa-check"></i>');
+                        } else if (data.type == 'no') {
+                            item.removeClass("btn-primary");
+                            item.addClass("btn-dark");
+                            item.html('<i class="fa fa-times"></i> ');
+                        }
+                        toastr[data.status](data.message);
+                    }
+                });
+            });
+
+        });
+    </script>
 
 @endsection

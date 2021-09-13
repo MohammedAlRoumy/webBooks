@@ -44,6 +44,7 @@ class BookController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
+            'book' => 'required|mimes:doc,docx,pdf,xlx,csv',
             'author_id'=>'required|exists:authors,id',
             'category_id'=>'required|exists:categories,id',
             'description' => 'required',
@@ -56,7 +57,7 @@ class BookController extends Controller
             $status = 'inactive';
         }
 
-        $request_data = $request->except(['image']);
+        $request_data = $request->except(['image','book']);
 
         if ($request->image) {
 
@@ -65,13 +66,24 @@ class BookController extends Controller
             $request_data['image'] = $request->image->hashName();
         }
 
+        if ($request->hasFile('book')) {
+            $book = $request->file('book');
+            $extention = $book->getClientOriginalExtension();
+            $file_name = 'book_' . "" . rand(1000000, 9999999) . "" . time() . "_" . rand(1000000, 9999999) . "." . $extention;
+
+            $book->move('uploads/books/', $file_name);
+
+            $request_data['book'] = $file_name;
+        }
+
         Book::create([
             'name'=>$request->name,
             'description'=>$request->description,
             'author_id'=>$request->author_id,
             'category_id'=>$request->category_id,
             'status'=>$status,
-            'image'=>$request_data['image']
+            'image'=>$request_data['image'],
+            'book'=>$request_data['book']
         ]);
 
         session()->flash('success', 'تمت عملية الإضافة بنجاح');
@@ -114,6 +126,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $validated = $request->validate([
             'name' => 'required',
+            'book' => 'nullable|mimes:doc,docx,pdf,xlx,csv',
             'author_id'=>'required|exists:authors,id',
             'category_id'=>'required|exists:categories,id',
             'description' => 'required',
@@ -126,7 +139,7 @@ class BookController extends Controller
             $status = 'inactive';
         }
 
-        $request_data = $request->except(['image']);
+        $request_data = $request->except(['image','book']);
 
         if ($request->image) {
             File::delete(public_path('uploads/books/' . $book->image));
@@ -135,13 +148,23 @@ class BookController extends Controller
             $request_data['image'] = $request->image->hashName();
         }
 
+        if ($request->book) {
+            File::delete(public_path('uploads/books/' . $book->book));
+            $book = $request->file('book');
+            $extention = $book->getClientOriginalExtension();
+            $file_name = 'book_' . "" . rand(1000000, 9999999) . "" . time() . "_" . rand(1000000, 9999999) . "." . $extention;
+            $book->move('uploads/books/', $file_name);
+            $request_data['book'] = $file_name;
+        }
+
         $book->update([
             'name'=>$request->name,
             'description'=>$request->description,
             'author_id'=>$request->author_id,
             'category_id'=>$request->category_id,
             'status'=>$status,
-            'image'=>@$request_data['image']?:$book->image
+            'image'=>@$request_data['image']?:$book->image,
+            'book'=>@$request_data['book']??$book->book
         ]);
 
         session()->flash('success', 'تمت عملية التعديل بنجاح');

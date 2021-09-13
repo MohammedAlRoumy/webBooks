@@ -37,7 +37,7 @@
                 <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
                     <form>
                         <!--begin::Header-->
-                        <div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url(assets/media/misc/bg-1.jpg)">
+                        <div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url({{asset('assets/media/misc/bg-1.jpg')}})">
                             <!--begin::Title-->
                             <h4 class="d-flex flex-center rounded-top">
                                 <span class="text-white">User Notifications</span>
@@ -473,7 +473,7 @@
             <!--end::Notifications-->
 
             <!--begin::User-->
-            <div class="topbar-item">
+            {{--<div class="topbar-item">
                 <div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                     <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
                     <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Sean</span>
@@ -481,7 +481,64 @@
 											<span class="symbol-label font-size-h5 font-weight-bold">S</span>
 										</span>
                 </div>
+            </div>--}}
+
+            <div class="dropdown">
+                {{-- Toggle --}}
+                <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
+                    <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
+                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{Auth::guard('admin')->user()->name}}</span>
+                        <div class="symbol symbol-md mr-3 flex-shrink-0">
+                            <img @if(Auth::guard('admin')->user()->image != null) src="{{asset('uploads/admins/'.Auth::guard('admin')->user()->image)}}" @else src="{{asset('logo/logo.png')}}" @endif  alt=""/>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Dropdown --}}
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg p-0">
+                    {{-- Header --}}
+                    <div class="d-flex align-items-center justify-content-between flex-wrap p-8 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url('{{ asset('assets/media/misc/bg-1.jpg') }}')">
+                        <div class="d-flex align-items-center mr-2">
+                            {{-- Symbol --}}
+                            <div class="symbol symbol-md mr-3 flex-shrink-0">
+                                <img @if(Auth::guard('admin')->user()->image != null) src="{{asset('uploads/admins/'.Auth::guard('admin')->user()->image)}}" @else src="{{asset('logo/logo.png')}}" @endif alt=""/>
+                            </div>
+                            {{-- Text --}}
+                            <div class="text-white m-0 flex-grow-1 mr-3 font-size-h5">{{Auth::guard('admin')->user()->name}}</div>
+                        </div>
+                    </div>
+
+                    {{-- Nav --}}
+                    <div class="navi navi-spacer-x-0 pt-5">
+                        {{-- Item --}}
+                        <a href="{{route('admins.editProfile',Auth::guard('admin')->user()->id)}}" class="navi-item px-8">
+                            <div class="navi-link">
+                                <div class="navi-icon mr-2">
+                                    <i class="flaticon2-calendar-3 text-success"></i>
+                                </div>
+                                <div class="navi-text">
+                                    <div class="font-weight-bold">
+                                        بياناتي
+                                    </div>
+                                    <div class="text-muted">
+                                        بيانات الحساب الشخصية
+                                        <span class="label label-light-danger label-inline font-weight-bold">تحديث</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                        {{-- Footer --}}
+                        <div class="navi-separator mt-3"></div>
+                        <div class="navi-footer  px-8 py-5">
+                            <a href="{{route('admin.logout')}}" class="btn btn-light-primary font-weight-bold">تسجيل خروج</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
             <!--end::User-->
         </div>
         <!--end::Topbar-->

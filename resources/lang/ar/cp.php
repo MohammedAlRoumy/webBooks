@@ -6,9 +6,10 @@ return [
     'authors' =>'المؤلفون',
     'books' =>'الكتب',
     'comments'=>'التعليقات',
-    'mission'=>'مهمتنا',
+    'our_mission'=>'مهمتنا',
     'settings'=>'الإعدادت',
     'roles'=>'الصلاحيات',
+    'copyrights'=>'حقوق النشر',
     'translations'=>'النصوص',
     'generalProperties'=>'الخصائص العامة',
     'categories'=>'التصنيفات',
@@ -28,6 +29,7 @@ return [
     'terms'=>'الشروط و الأحكام',
     'policies'=>'سياسة الخصوصية',
     'payments'=>'طرق الدفع',
+    'publish'=>'انشر معنا',
 
     //////////////////////////////////////
     'view'=>'عرض',

@@ -23,13 +23,14 @@ class AdminDataTable extends DataTable
             ->eloquent($query->orderBy('id', 'desc'))
             ->addIndexColumn()
             ->addColumn('actions', 'admin.admins.parts.actions')
+            ->addColumn('image', 'admin.admins.parts.image')
             ->addColumn('role', function ($query) {
                 foreach($query->getRoleNames() as $role) {
                     return $role;
                 }
 
             })
-            ->rawColumns(['actions','role']);
+            ->rawColumns(['actions','role','image']);
     }
 
     /**
@@ -201,6 +202,12 @@ class AdminDataTable extends DataTable
                 'searchable' => false,
                 'exportable' => false,
                 'printable' => true,
+            ],
+            [
+                "data" => "image",
+                "name" => "image",
+                "title" => "الصورة",
+                'orderable' => false,
             ],
             [
                 "data" => "name",

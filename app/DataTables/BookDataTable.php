@@ -22,9 +22,10 @@ class BookDataTable extends DataTable
         return datatables()
             ->eloquent($query->orderBy('id', 'desc'))
             ->addIndexColumn()
+            ->addColumn('image', 'admin.books.parts.image')
             ->addColumn('actions', 'admin.books.parts.actions')
             ->addColumn('status', 'admin.books.parts.status')
-            ->rawColumns(['actions', 'status']);
+            ->rawColumns(['actions', 'status','image']);
     }
 
     /**
@@ -197,6 +198,12 @@ class BookDataTable extends DataTable
                 'searchable' => false,
                 'exportable' => false,
                 'printable' => true,
+            ],
+            [
+                "data" => "image",
+                "name" => "image",
+                "title" => "صورة الكتاب",
+                'orderable' => false,
             ],
             [
                 "data" => "name",

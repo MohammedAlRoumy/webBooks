@@ -1,81 +1,76 @@
-<?php 
+<?php
+namespace App\Http\Controllers\Admin;
 
-class CommentController extends BaseController {
+use App\DataTables\CommentDataTable;
+use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+class CommentController extends Controller
+{
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index(CommentDataTable $dataTable)
+    {
+        return $dataTable->render('admin.comments.index');
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store()
-  {
-    
-  }
+    public function delete(Request $request)
+    {
+        $book = Comment::findOrFail($request->id);
+        $book->delete();
+        return response()->json([
+            'success' => 'تمت عملية الحذف بنجاح'
+        ]);
+        // return redirect()->route('authors.index')->with('success', 'تمت عملية الحذف بنجاح');
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    public function status(Request $request){
+        $id = $request->get('id');
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+        $info = Comment::find($id);
+        if ($info)
+        {
+            $status = $info->status;
+            if($status == 'inactive')
+            {
+                $info->status = 'active';
+                $updated = $info->save();
+                if($updated)
+                {
+                    return response()->json(['status' => 'success', 'message' => 'تم تغيير الحالة لمفعل', 'type' => 'yes']);
+                }
+                else
+                {
+                    return response()->json(['status' => 'error', 'message' =>'حدث خطأ ما']);
+                }
+            }
+            else
+            {
+                $info->status = 'inactive';
+                $updated = $info->save();
+                if($updated)
+                {
+                    return response()->json(['status' => 'success', 'message' => 'تم تغيير الحالة لمعطل', 'type' => 'no']);
+                }
+                else
+                {
+                    return response()->json(['status' => 'error', 'message' => 'حدث خطأ ما']);
+                }
+            }
+        }
+        else
+        {
+            return response()->json(['status' => 'error', 'message' => 'لا يوجد عنصر']);
+        }
+    }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
 }
 
 ?>
